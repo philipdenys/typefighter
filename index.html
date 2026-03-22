@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TypeFighter</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <!-- ── Game Canvas ─────────────────────────────────────────── -->
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- ── HUD (always on-screen during gameplay) ──────────────── -->
+    <div id="hud" class="hidden">
+        <div id="hud-left">
+            <span class="hud-label">SCORE</span>
+            <span id="hud-score">0</span>
+        </div>
+        <div id="hud-center">
+            <span class="hud-label">MODE</span>
+            <span id="hud-mode">LETTERS</span>
+        </div>
+        <div id="hud-right">
+            <span class="hud-label">COMBO</span>
+            <span id="hud-combo">x1</span>
+        </div>
+        <div id="hud-errors-wrap">
+            <span class="hud-label">TYPOS</span>
+            <span id="hud-errors">0</span>
+        </div>
+        <div id="hud-health-bar-wrap">
+            <span class="hud-label">HULL</span>
+            <div id="hud-health-track">
+                <div id="hud-health-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Start / Mode-Select Screen ─────────────────────────── -->
+    <div id="screen-start" class="screen">
+        <div class="screen-inner">
+            <h1 class="game-title">TYPE<span class="accent">FIGHTER</span></h1>
+            <p class="tagline">Destroy enemies with your keyboard</p>
+            <div class="mode-buttons">
+                <button class="btn btn-mode" id="btn-letter-mode">
+                    <span class="btn-icon">🔤</span>
+                    <span class="btn-title">LETTER MODE</span>
+                    <span class="btn-sub">Beginner · single letters</span>
+                </button>
+                <button class="btn btn-mode" id="btn-word-mode">
+                    <span class="btn-icon">⌨️</span>
+                    <span class="btn-title">WORD MODE</span>
+                    <span class="btn-sub">Advanced · full words</span>
+                </button>
+                <button class="btn btn-mode" id="btn-sentence-mode">
+                    <span class="btn-icon">⚡</span>
+                    <span class="btn-title">SENTENCE MODE</span>
+                    <span class="btn-sub">Expert · full sentences</span>
+                </button>
+                <button class="btn btn-mode" id="btn-dev-mode">
+                    <span class="btn-icon">💻</span>
+                    <span class="btn-title">DEV MODE</span>
+                    <span class="btn-sub">Hacker · HTML / CSS / JS</span>
+                </button>
+            </div>
+            <div class="fail-rate-wrap">
+                <span class="hud-label">FAIL RATE</span>
+                <div class="fail-rate-buttons" id="fail-rate-buttons">
+                    <button class="btn btn-fail" data-rate="low">LOW<span class="btn-sub">-10 HP</span></button>
+                    <button class="btn btn-fail active" data-rate="normal">NORMAL<span class="btn-sub">-20 HP</span></button>
+                    <button class="btn btn-fail" data-rate="high">HIGH<span class="btn-sub">-35 HP</span></button>
+                </div>
+            </div>
+            <div class="fail-rate-wrap">
+                <span class="hud-label">TYPO FOG</span>
+                <div class="fail-rate-buttons" id="fog-buttons">
+                    <button class="btn btn-fog active" data-fog="off">OFF<span class="btn-sub">no penalty</span></button>
+                    <button class="btn btn-fog" data-fog="on">ON<span class="btn-sub">screen darkens</span></button>
+                </div>
+            </div>
+            <p class="hint">Use your keyboard to type falling enemies before they reach the bottom.</p>
+        </div>
+    </div>
+
+    <!-- ── Game-Over Screen ────────────────────────────────────── -->
+    <div id="screen-gameover" class="screen hidden">
+        <div class="screen-inner">
+            <h2 class="gameover-title">GAME OVER</h2>
+            <p class="gameover-score-label">FINAL SCORE</p>
+            <p id="gameover-score" class="gameover-score">0</p>
+            <p id="gameover-combo" class="gameover-detail"></p>
+            <div class="mode-buttons">
+                <button class="btn btn-action" id="btn-restart-letter">LETTER MODE</button>
+                <button class="btn btn-action" id="btn-restart-word">WORD MODE</button>
+                <button class="btn btn-action" id="btn-restart-sentence">SENTENCE MODE</button>
+                <button class="btn btn-action" id="btn-restart-dev">DEV MODE</button>
+            </div>
+            <p class="hint">Choose a mode to play again</p>
+        </div>
+    </div>
+
+    <!-- ── Pause Overlay ──────────────────────────────────────── -->
+    <div id="screen-pause" class="screen hidden">
+        <div class="screen-inner">
+            <h2>PAUSED</h2>
+            <p class="hint">Press <kbd>ESC</kbd> to resume</p>
+            <div class="mode-buttons" style="margin-top:24px">
+                <button class="btn btn-action" id="btn-pause-restart">RESTART</button>
+                <button class="btn btn-action" id="btn-pause-menu">MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Key Log (debug overlay) ───────────────────────────── -->
+    <div id="key-log" class="hidden">
+        <div id="key-log-title">KEY LOG</div>
+        <div id="key-log-entries"></div>
+    </div>
+
+    <!-- ── Active Power-Up Banner ─────────────────────────────── -->
+    <div id="powerup-banner" class="hidden"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
